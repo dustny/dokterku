@@ -1,0 +1,62 @@
+[
+    {
+        "name": "Dengue Fever",
+        "description": "is a viral infection that spreads from mosquitoes to people. It is more common in tropical and subtropical climates. Most people who get dengue won't have symptoms. But for those that do, the most common symptoms are high fever, headache, body aches, nausea and rash.",
+        "level":2
+    },
+    {
+        "name": "Hepatitis",
+        "description": " inflammation of the liver. The liver is a vital organ that processes nutrients, filters the blood, and fights infections. When the liver is inflamed or damaged, its function can be affected. Heavy alcohol use, toxins, some medications, and certain medical conditions can cause hepatitis.",
+        "level":3
+    },
+    {
+        "name": "Malaria",
+        "description": "is a serious and sometimes fatal disease caused by a parasite that commonly infects a certain type of mosquito which feeds on humans.",
+        "level":1
+    },
+    {
+        "name": "Tuberculosis",
+        "description": "is an infectious disease that most often affects the lungs and is caused by a type of bacteria.",
+        "level":3
+    },
+    {
+        "name": "AIDS",
+        "description": "a number of potentially life-threatening infections and illnesses that happen when your immune system has been severely damaged by the HIV virus.",
+        "level":5
+    },
+    {
+        "name": "HIV",
+        "description": "is a virus that attacks the body's immune system.",
+        "level":4
+    },
+    {
+        "name": "Diarrhea",
+        "description": "when your stools are loose and watery. You may also need to go to the bathroom more often. ",
+        "level":1
+    },
+    {
+        "name": "Fever",
+        "description": "temporary increase in the body's temperature in response to a disease or illness.",
+        "level":1
+    },
+    {
+        "name": "Flu",
+        "description": "a stuffy or runny nose, sneezing, coughing and a sore throat.",
+        "level":1
+    },
+    {
+        "name": "Diabetes",
+        "description": "your body doesn't make enough insulin or can't use it as well as it should.",
+        "level":3
+    },
+    {
+        "name": "Chicken Pox",
+        "description": "a highly contagious disease caused by the varicella-zoster virus (VZV). It can cause an itchy, blister-like rash among other symptoms. ",
+        "level":2
+    },
+    {
+        "name": "Coronavirus",
+        "description": "an infectious disease caused by the SARS-CoV-2 virus. came from chine where the people eat bats",
+        "level":4
+    }
+]
