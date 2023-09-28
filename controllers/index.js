@@ -1,5 +1,5 @@
 const{User, UserProfile,Disease,MedicalRecord} = require('../models')
-
+const bcyrpt = require('bcryptjs')
 const {getAge, formatIDR , fullName} = require('../helpers/formatter')
 const { Op } = require('sequelize')
 
@@ -10,7 +10,33 @@ class Controller{
     }
 
     static login(req , res){
-        res.render("login")
+        const {errors} = req.query
+        res.render("login", {errors})
+    }
+
+    static postLogin(req , res){
+        const {username, password} = req.body
+
+        User.findOne({where: {username}})
+        .then((user)=>{
+            if(user) {
+                const isValidPassword = bcyrpt.compareSync(password,user.password)
+
+                if(isValidPassword) {
+                    return res.redirect('/')
+                } else {
+                    const errors = "Invalid password"
+                    return res.redirect(`/login?errors=${errors}`)
+                }
+            }else{
+                const errors = "Invalid username"
+                return res.redirect(`/login?errors=${errors}`)
+            }
+        })
+        .catch((err)=>{
+            console.log(err)
+            res.send(err)
+        })
     }
 
     static addUser(req , res){
@@ -25,7 +51,7 @@ class Controller{
         User.create({username,password,role})
         .then((result)=>{
             const id = result.dataValues.id
-            res.redirect(`/profile/${id}`)
+            res.redirect(`/login`)
         })
         .catch((err)=>{
         if(err.name === 'SequelizeValidationError'){
