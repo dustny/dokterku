@@ -22,7 +22,7 @@ module.exports = {
         type: Sequelize.STRING(1)
       },
       bloodType: {
-        type: Sequelize.STRING(1)
+        type: Sequelize.STRING(2)
       },
       city: {
         type: Sequelize.STRING

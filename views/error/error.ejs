@@ -1,0 +1,5 @@
+<% if(errors) { %>
+    <% errors.split(',').forEach((item)=>{ %>
+         <p style="color:red;"><%= item %></p> <br>
+    <%})%>
+<% } %>

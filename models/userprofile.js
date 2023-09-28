@@ -13,6 +13,24 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       UserProfile.belongsTo(models.User)
     }
+
+    get dateConvert() {
+      return this.dateOfBirth.toISOString().split("T")[0]
+    }
+
+    get formatGender() {
+      if(this.gender === 'F'){
+        return 'Female'
+      }
+      if(this.gender === 'M'){
+        return 'Male'
+      }
+    }
+
+    get age(){
+      return new Date().getFullYear() - new Date(this.dateOfBirth).getFullYear()
+    }
+
   }
   UserProfile.init({
     firstName: DataTypes.STRING,

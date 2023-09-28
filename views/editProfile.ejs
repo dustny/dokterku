@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dokterku</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Dokterku</a>
+          <a class="navbar-brand" href="#">Logout</a>
+        </div>
+      </nav>
+        <form class="row g-3" action="/profile/<%=user.id%>/edit" method="post">
+          <div class="col-12 text-center">
+            <label class="form-label">First Name</label>
+            <center><input type="string" class="form-control" name="firstName" placeholder="First Name..." style="width:400px" value="<%=user.firstName%>"></center>
+          </div>
+          <div class="col-12 text-center">
+            <label class="form-label">Password</label>
+            <center><input type="text" class="form-control w-30" placeholder="Last Name..." name="lastName" style="width:400px" value="<%=user.lastName%>"></center>
+          </div>
+          <div class="col-12 text-center">
+            <label class="form-label">Date Of Birth</label>
+            <center><input type="date" class="form-control"  placeholder="Date Of Birth" name="dateOfBirth" style="width:400px" value="<%=user.dateConvert%>"></center>
+          </div>
+          <div class="col-12 text-center">
+            <label class="form-label">Gender</label>
+            <center><select class="form-select" aria-label="Default select example" name="gender" style="width:400px">
+              <option value="<%=user.gender %>" selected><%=user.formatGender %></option>
+              <option value="M" <% if (user.gender==='M' ) { %>style="display: none;"<% } %>>Male</option>
+              <option value="F" <% if (user.gender==='F' ) { %>style="display: none;"<% } %>>Female</option>
+          </select></center>
+          </div>
+          <div class="col-12 text-center">
+            <label class="form-label">BloodType</label>
+            <center><select class="form-select" aria-label="Default select example" name="bloodtype" style="width:400px">
+              <option value="<%=user.bloodType %>" selected><%=user.bloodType %></option>
+              <option value="A" <% if (user.bloodType==='A' ) { %>style="display: none;"<% } %>>A</option>
+              <option value="B" <% if (user.bloodType==='B' ) { %>style="display: none;"<% } %>>B</option>
+              <option value="AB" <% if (user.bloodType==='AB' ) { %>style="display: none;"<% } %>>AB</option>
+              <option value="O" <% if (user.bloodType==='O' ) { %>style="display: none;"<% } %>>O</option>
+          </select></center>
+          </div>
+          <div class="col-12 text-center">
+            <label class="form-label">Address</label>
+            <center><input type="text" class="form-control"  placeholder="City.." name="city" style="width: 400px" value="<%=user.city%>"></center>
+          </div>
+          <center><button type="submit" class="btn btn-primary" value="Save" style="width: 200px">Save</button></center>
+        </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>
