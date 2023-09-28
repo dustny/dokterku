@@ -126,6 +126,7 @@ class Controller{
         let diseases = ``
         User.findAll({where: {role:'patient'}, include: UserProfile})
         .then((patient)=>{
+            console.log("hi");
             patients = patient
             return User.findAll({where: {role:'doctor'}, include: UserProfile})
         })
