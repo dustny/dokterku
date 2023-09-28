@@ -11,20 +11,20 @@
       <% if(errors){ %>
        <center><p style="color: red;"><%= errors %></p></center> 
      <% } %>
-      <h5 style="text-align: center;">Login</h5>
+      <h5 style="text-align: center; font-family: 'Times New Roman';font-size: 170%;font-weight: 100;">Login</h5>
       <container style="width: 100px;">
       <form action="/login" style="text-align: center;" method="post">
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Username</label>
+          <label for="exampleInputEmail1" class="form-label" style="font-family: 'Times New Roman';font-size: larger;">Username</label>
           <center><input type="text" class="form-control" style="width: 300px;" name="username"></center>
         <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <label for="exampleInputPassword1" class="form-label" style="font-family: 'Times New Roman';font-size: larger;">Password</label>
           <center><input type="password" class="form-control" id="exampleInputPassword1" style="width: 300px;" name="password" ></center>
         </div>
         <button type="submit" class="btn btn-primary" value="Save">Login</button>
       </form>
       <div><br>
-        <h5>Don't have an Account yet?</h5>
+        <h5 style="font-family: serif;font-size: 180%; text-align: center;">Don't have an Account yet?</h5>
         <a class="btn btn-primary" href="/register" role="button">Register Here</a>
        </div>
     </container>

@@ -5,9 +5,9 @@ router.get('/login', Controller.login)
 router.get('/register', Controller.addUser)
 router.post('/register', Controller.createUser)
 router.post('/login', Controller.postLogin)
+router.get('/logout', Controller.logout)
 
 router.use(function (req, res, next) {
-    console.log(req.session)
 
     if(!req.session.userId){
       const errors = `Please login first!!!`

@@ -8,17 +8,20 @@
   </head>
   <body>
     <h1>Add Disease</h1>
+    <% if(errors){ %>
+      <center><p style="color: red;"><%= errors %></p></center> 
+    <% } %>
     <form class="row g-3" action="/disease/add" method="post">
         <div class="col-12 text-center">
-          <label class="form-label">Name of Disease</label>
+          <label class="form-label" style="font-family: 'Times New Roman';font-size: larger;">Name of Disease</label>
           <center><input type="string" class="form-control" name="name" placeholder="Name Of Disease.." style="width:400px"></center>
         </div>
         <div class="col-12 text-center">
-          <label class="form-label">Level of Danger</label>
+          <label class="form-label" style="font-family: 'Times New Roman';font-size: larger;">Level of Danger</label>
           <center><input type="text" class="form-control"  placeholder="1-5" name="level" style="width:400px"></center>
         </div>
         <div class="col-12 text-center" >
-          <label class="form-label">Description</label>
+          <label class="form-label" style="font-family: 'Times New Roman';font-size: larger;">Description</label>
           <center><textarea class="textarea" id="exampleFormControlTextarea1" rows="10" cols="50" name="description" placeholder="Description of Disease.."></textarea></center>
         </div>
         <center><button type="submit" class="btn btn-primary" value="Save" style="width: 200px">Save</button></center>

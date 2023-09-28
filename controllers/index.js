@@ -1,12 +1,13 @@
 const{User, UserProfile,Disease,MedicalRecord} = require('../models')
 const bcyrpt = require('bcryptjs')
-const {getAge, formatIDR , fullName} = require('../helpers/formatter')
+const { formatIDR , fullName} = require('../helpers/formatter')
 const { Op } = require('sequelize')
 
 class Controller{
 
     static home(req,res){
-        res.render('home')
+        const id=req.session.userId
+        res.render('home', {id})
     }
 
     static login(req , res){
@@ -16,16 +17,21 @@ class Controller{
 
     static postLogin(req , res){
         const {username, password} = req.body
+        const id = req.session.userId 
 
-        User.findOne({where: {username}})
+        User.findOne({where: {username} , include:UserProfile})
         .then((user)=>{
+            const checkProfile = user.dataValues.UserProfile
             if(user) {
                 const isValidPassword = bcyrpt.compareSync(password,user.password)
 
                 if(isValidPassword) {
-
                     req.session.userId = user.id
-                    return res.redirect('/')
+                    if(checkProfile){
+                        return res.redirect(`/`)
+                    }else if(checkProfile == null){
+                        return res.redirect(`/profile/${id}`)
+                    }
                 } else {
                     const errors = "Invalid password"
                     return res.redirect(`/login?errors=${errors}`)
@@ -49,10 +55,10 @@ class Controller{
 
     static createUser(req , res){
         const {username,password,role} = req.body
+        const id = req.session.userId
 
         User.create({username,password,role})
-        .then((result)=>{
-            const id = result.dataValues.id
+        .then(()=>{
             res.redirect(`/login`)
         })
         .catch((err)=>{
@@ -70,13 +76,13 @@ class Controller{
 
     static addUserProfile(req,res){
         const {errors} = req.query
-        const {id} = req.params
+        const id = req.session.userId
 
         res.render('profile',{id, errors})
     }
 
     static createUserProfile(req,res){
-        const {id} = req.params
+        const id = req.session.userId
         const {firstName,lastName,dateOfBirth,gender,bloodType,city} = req.body
 
         UserProfile.create({firstName,lastName,dateOfBirth,gender,bloodType,city, UserId: id})
@@ -94,7 +100,7 @@ class Controller{
     }
 
     static getProfile(req , res){
-        const {id} = req.params
+        const id = req.session.userId
 
         UserProfile.findOne({
             include: User,
@@ -111,7 +117,24 @@ class Controller{
     }
 
     static editProfile(req , res){
-        res.render("profile")
+        const id= req.params
+        const{firstName , lastName , dateOfBirth ,gender , bloodType, city }=req.body
+        console.log(req.body);
+        UserProfile.update({firstName , lastName , dateOfBirth ,gender , bloodType, city },{where:id})
+        .then(()=>{
+
+            res.redirect("/")
+            
+        })
+        .catch((err)=>{
+            if(err.name === 'SequelizeValidationError'){
+                const errors = err.errors.map(e => e.message)
+                res.redirect(`/profile/${id}?errors=${errors}`)
+            }else{
+                res.send(err)
+            }   
+            })
+
     }
 
     static showAllDiseases(req,res){
@@ -177,7 +200,7 @@ class Controller{
         })
         .then((disease)=>{
             diseases = disease
-            res.render('addMedicalRecord', {patients, doctors, diseases, errors, getAge , fullName})
+            res.render('addMedicalRecord', {patients, doctors, diseases, errors,fullName})
         })
         .catch((err)=>{
             console.log(err)
@@ -223,7 +246,6 @@ class Controller{
     }
 
     static medicalRecordDetail(req , res){
-        console.log(req.params);
         const {UserId ,DiseaseId }=req.params
 
         let users = ``
@@ -233,7 +255,6 @@ class Controller{
         MedicalRecord.findAll({where:{UserId,
             DiseaseId }})
         .then((record)=>{
-            console.log(record);
             records = record
             return User.findOne({where:{id:UserId},include:UserProfile})
         })
@@ -245,7 +266,7 @@ class Controller{
         .then((disease)=>{
             if (!disease) throw "Disease not found!"
             diseases = disease
-            res.render("medicalRecordDetail" , {records,users,diseases , fullName ,getAge, formatIDR})
+            res.render("medicalRecordDetail" , {records,users,diseases , fullName ,formatIDR})
         })
         .catch((err)=>{
             console.log(err)
@@ -254,6 +275,17 @@ class Controller{
 
     }
 
+    static logout(req , res){
+        req.session.destroy((err)=>{
+            if(err){
+                console.log(err);
+                res.send(err)
+            }else{
+                res.redirect('/login')
+            }
+        })
+        
+    }
 }
 
 module.exports = Controller

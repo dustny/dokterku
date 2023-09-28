@@ -10,24 +10,27 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">Dokterku</a>
-          <a class="navbar-brand" href="#">Logout</a>
+          <a class="navbar-brand" href="/logout">Logout</a>
         </div>
       </nav>
+      <% if(errors){ %>
+        <center><p style="color: red;"><%= errors %></p></center> 
+      <% } %>
         <form class="row g-3" action="/profile/<%=user.id%>/edit" method="post">
           <div class="col-12 text-center">
-            <label class="form-label">First Name</label>
+            <label class="form-label" style="font-family: 'Times New Roman';font-size: larger;">First Name</label>
             <center><input type="string" class="form-control" name="firstName" placeholder="First Name..." style="width:400px" value="<%=user.firstName%>"></center>
           </div>
           <div class="col-12 text-center">
-            <label class="form-label">Password</label>
+            <label class="form-label" style="font-family: 'Times New Roman';font-size: larger;">Password</label>
             <center><input type="text" class="form-control w-30" placeholder="Last Name..." name="lastName" style="width:400px" value="<%=user.lastName%>"></center>
           </div>
           <div class="col-12 text-center">
-            <label class="form-label">Date Of Birth</label>
+            <label class="form-label" style="font-family: 'Times New Roman';font-size: larger;">Date Of Birth</label>
             <center><input type="date" class="form-control"  placeholder="Date Of Birth" name="dateOfBirth" style="width:400px" value="<%=user.dateConvert%>"></center>
           </div>
           <div class="col-12 text-center">
-            <label class="form-label">Gender</label>
+            <label class="form-label" style="font-family: 'Times New Roman';font-size: larger;">Gender</label>
             <center><select class="form-select" aria-label="Default select example" name="gender" style="width:400px">
               <option value="<%=user.gender %>" selected><%=user.formatGender %></option>
               <option value="M" <% if (user.gender==='M' ) { %>style="display: none;"<% } %>>Male</option>
@@ -35,7 +38,7 @@
           </select></center>
           </div>
           <div class="col-12 text-center">
-            <label class="form-label">BloodType</label>
+            <label class="form-label" style="font-family: 'Times New Roman';font-size: larger;">BloodType</label>
             <center><select class="form-select" aria-label="Default select example" name="bloodtype" style="width:400px">
               <option value="<%=user.bloodType %>" selected><%=user.bloodType %></option>
               <option value="A" <% if (user.bloodType==='A' ) { %>style="display: none;"<% } %>>A</option>
@@ -45,7 +48,7 @@
           </select></center>
           </div>
           <div class="col-12 text-center">
-            <label class="form-label">Address</label>
+            <label class="form-label" style="font-family: 'Times New Roman';font-size: larger;">Address</label>
             <center><input type="text" class="form-control"  placeholder="City.." name="city" style="width: 400px" value="<%=user.city%>"></center>
           </div>
           <center><button type="submit" class="btn btn-primary" value="Save" style="width: 200px">Save</button></center>

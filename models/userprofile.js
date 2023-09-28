@@ -27,12 +27,15 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
 
+    getAge(value){
+      return new Date().getFullYear() - new Date(value).getFullYear()
+    }
+
   }
   UserProfile.init({
     firstName: {
       type: DataTypes.STRING,
       allowNull :false,
-      unique :true,
       validate:{
         notNull:{
           msg: "First Name is Required"
@@ -45,7 +48,6 @@ module.exports = (sequelize, DataTypes) => {
     lastName: {
       type: DataTypes.STRING,
       allowNull :false,
-      unique :true,
       validate:{
         notNull:{
           msg: "Last Name is Required"
@@ -58,7 +60,6 @@ module.exports = (sequelize, DataTypes) => {
     dateOfBirth: {
       type: DataTypes.DATE,
       allowNull :false,
-      unique :true,
       validate:{
         notNull:{
           msg: "Date is Required"
@@ -71,7 +72,6 @@ module.exports = (sequelize, DataTypes) => {
     gender:{
       type: DataTypes.STRING,
       allowNull :false,
-      unique :true,
       validate:{
         notNull:{
           msg: "Gender is Required"
@@ -84,7 +84,6 @@ module.exports = (sequelize, DataTypes) => {
     bloodType: {
       type: DataTypes.STRING,
       allowNull :false,
-      unique :true,
       validate:{
         notNull:{
           msg: "Blood Type is Required"
@@ -97,7 +96,6 @@ module.exports = (sequelize, DataTypes) => {
     city: {
       type: DataTypes.STRING,
       allowNull :false,
-      unique :true,
       validate:{
         notNull:{
           msg: "City is Required"
@@ -110,7 +108,6 @@ module.exports = (sequelize, DataTypes) => {
     UserId:{
       type: DataTypes.INTEGER,
       allowNull :false,
-      unique :true,
       validate:{
         notNull:{
           msg: "User is Required"
