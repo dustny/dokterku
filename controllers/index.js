@@ -1,6 +1,6 @@
 const{User, UserProfile,Disease,MedicalRecord} = require('../models')
 
-const {fullName, dataUser} = require('../helpers/formatter')
+const {fullName} = require('../helpers/formatter')
 
 class Controller{
 
@@ -127,7 +127,7 @@ class Controller{
         User.findAll({where: {role:'patient'}, include: UserProfile})
         .then((patient)=>{
             patients = patient
-            return User.findAll({where: {role:'patient'}, include: UserProfile})
+            return User.findAll({where: {role:'doctor'}, include: UserProfile})
         })
         .then((doctor)=>{
             doctors = doctor
@@ -135,7 +135,7 @@ class Controller{
         })
         .then((disease)=>{
             diseases = disease
-            res.render('addMedicalRecord', {patients, doctors, diseases, errors, fullName, dataUser})
+            res.render('addMedicalRecord', {patients, doctors, diseases, errors, fullName})
         })
         .catch((err)=>{
             console.log(err)

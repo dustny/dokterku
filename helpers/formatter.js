@@ -1,11 +1,8 @@
 const fullName = (value) => {
-    const value1 = value.UserProfile.firstName
-    const value2 = value.UserProfile
+    const value1 = value.UserProfile.dataValues.firstName
+    const value2 = value.UserProfile.dataValues.lastName
     return `${value1} ${value2}`
 }
 
-const dataUser = (value) =>{
-    return value.dataValues.UserProfile
-}
 
-module.exports = {fullName, dataUser}
+module.exports = {fullName}

@@ -14,26 +14,9 @@
                 <label class="form-label">Full Name</label>
                 <select name="id">
                     <option value="" disabled selected>--Select--</option>
-                    <option value="<%= el.id%>"><%= fullName(dataUser(el)) %>
+                    <option value="<%= el.id%>"><%= fullName(el) %>
                 </option>
                 </select>
-              <center><input type="string" class="form-control" name="firstName" placeholder="First Name..." style="width:400px"></center>
-            </div>
-            <div class="col-12 text-center">
-              <label class="form-label">Last Name</label>
-              <center><input type="text" class="form-control w-30" placeholder="Last Name..." name="lastName" style="width:400px"></center>
-            </div>
-            <div class="col-12 text-center">
-              <label class="form-label">Date Of Birth</label>
-              <center><input type="date" class="form-control"  placeholder="Date Of Birth" name="dateOfBirth" style="width:400px"></center>
-            </div>
-            <div class="col-12 text-center">
-              <label class="form-label">Gender</label>
-              <center><select class="form-select" style="width: 400px" name="gender">
-                <option value="M">Male</option>
-                <option value="F">Female</option>
-                </select></center>
-            </div>
         <% }) %>
         <div class="col-12 text-center">
           <label class="form-label">BloodType</label>
