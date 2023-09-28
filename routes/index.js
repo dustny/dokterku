@@ -3,6 +3,7 @@ const router = require('express').Router()
 
 router.get('/', Controller.home)
 router.get('/login', Controller.login)
+router.post('/login', Controller.postLogin)
 router.get('/register', Controller.addUser)
 router.post('/register', Controller.createUser)
 
