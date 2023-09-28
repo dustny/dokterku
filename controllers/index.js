@@ -23,6 +23,8 @@ class Controller{
                 const isValidPassword = bcyrpt.compareSync(password,user.password)
 
                 if(isValidPassword) {
+
+                    req.session.userId = user.id
                     return res.redirect('/')
                 } else {
                     const errors = "Invalid password"

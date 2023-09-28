@@ -1,14 +1,23 @@
 const Controller = require('../controllers')
 const router = require('express').Router()
 
-router.get('/', Controller.home)
 router.get('/login', Controller.login)
-router.post('/login', Controller.postLogin)
 router.get('/register', Controller.addUser)
 router.post('/register', Controller.createUser)
+router.post('/login', Controller.postLogin)
 
+router.use(function (req, res, next) {
+    console.log(req.session)
 
+    if(!req.session.userId){
+      const errors = `Please login first!!!`
+      res.redirect(`/login?errors=${errors}`)
+    } else{
+      next()
+    }
+  })
 
+router.get('/', Controller.home)
 router.get('/profile/:id', Controller.addUserProfile)
 router.post('/profile/:id', Controller.createUserProfile)
 router.get('/profile/:id/edit', Controller.getProfile)
