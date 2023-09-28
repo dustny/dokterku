@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
       User.hasOne(models.UserProfile)
       User.hasMany(models.MedicalRecord)
     }
+
+    static findUser(){
+      return this.findAll({where: {role:'patient'},  include:{association: 'UserProfile', attributes:['firstName','lastName']}})
+    }
   }
   
   User.init({

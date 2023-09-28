@@ -12,6 +12,25 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
+
+    static findMedicalRecordById(){
+      let options = {
+        attributes: ['salary',
+          [sequelize.fn('CONCAT', sequelize.col("firstName"), ' ',
+          sequelize.col("lastName")), 'name'],
+          'position',
+          'id',
+        ],
+        include: {association: 'Store', attributes:['code', 'id']},
+        order: [['name', 'ASC']],
+        where: {}
+      }
+      if(type !== undefined && type !== 'All'){
+        options.where = {position: type}
+      }      
+      return this.findAll(options)
+    }
+
   }
   MedicalRecord.init({
     treatment: DataTypes.STRING,

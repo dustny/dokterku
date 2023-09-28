@@ -1,6 +1,6 @@
 const{User, UserProfile,Disease,MedicalRecord} = require('../models')
 
-const {fullName} = require('../helpers/formatter')
+const {getAge, formatIDR} = require('../helpers/formatter')
 
 class Controller{
 
@@ -124,9 +124,8 @@ class Controller{
         let patients = ``
         let doctors = ``
         let diseases = ``
-        User.findAll({where: {role:'patient'}, include: UserProfile})
+        User.findUser()
         .then((patient)=>{
-            console.log("hi");
             patients = patient
             return User.findAll({where: {role:'doctor'}, include: UserProfile})
         })
@@ -136,7 +135,7 @@ class Controller{
         })
         .then((disease)=>{
             diseases = disease
-            res.render('addMedicalRecord', {patients, doctors, diseases, errors, fullName})
+            res.render('addMedicalRecord', {patients, doctors, diseases, errors, getAge})
         })
         .catch((err)=>{
             console.log(err)
@@ -145,11 +144,27 @@ class Controller{
     }
 
     static createMedicalRecord(req,res){
-
+        const {treatment,cost,diagnosis,dateOfDiagnosis,doctorName,DiseaseId,UserId} = req.body
+        MedicalRecord.create({treatment,cost,diagnosis,dateOfDiagnosis,doctorName,DiseaseId,UserId})
+        .then(()=>{
+            res.redirect('/medicalRecords')
+        })
+        .catch((err)=>{
+            if(err.name === 'SequelizeValidationError'){
+                const errors = err.errors.map(e => e.message)
+                res.redirect(`add?errors=${errors}`)
+            }else{
+                res.send(err)
+            }   
+        })
     }
 
     static medicalRecordPage(req,res){
-
+        User.findAll({include:[Disease]})
+        .then((patient)=>{
+            console.log(patient[0].dataValues.Diseases[0].dataValues.MedicalRecord)
+            // res.render('medicalRecord')
+        })
     }
 }
 

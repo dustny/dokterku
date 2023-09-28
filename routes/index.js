@@ -19,7 +19,8 @@ router.get('/disease/add', Controller.addDisease)
 router.post('/disease/add', Controller.createDisease)
 router.get('/disease/delete/:id', Controller.deleteDisease)
 router.get('/medicalRecords/add', Controller.addMedicalRecord)
-// router.post('/medicalRecords/', Controller.createMedicalRecord)
+router.post('/medicalRecords/add', Controller.createMedicalRecord)
+router.get('/medicalRecords', Controller.medicalRecordPage)
 
 
 module.exports = router

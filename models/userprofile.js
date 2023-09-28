@@ -27,10 +27,6 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
 
-    get age(){
-      return new Date().getFullYear() - new Date(this.dateOfBirth).getFullYear()
-    }
-
   }
   UserProfile.init({
     firstName: DataTypes.STRING,
