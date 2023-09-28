@@ -30,7 +30,10 @@ class Controller{
         .catch((err)=>{
         if(err.name === 'SequelizeValidationError'){
             const errors = err.errors.map(e => e.message)
-            res.redirect(`add?errors=${errors}`)
+            res.redirect(`/register?errors=${errors}`)
+        }else if (err.name === 'SequelizeUniqueConstraintError'){
+            const errors = err.errors.map(e => e.message)
+            res.redirect(`/register?errors=${errors}`)
         }else{
             res.send(err)
         }   

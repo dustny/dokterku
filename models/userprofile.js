@@ -29,13 +29,97 @@ module.exports = (sequelize, DataTypes) => {
 
   }
   UserProfile.init({
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    dateOfBirth: DataTypes.DATE,
-    gender: DataTypes.STRING,
-    bloodType: DataTypes.STRING,
-    city: DataTypes.STRING,
-    UserId:DataTypes.INTEGER
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull :false,
+      unique :true,
+      validate:{
+        notNull:{
+          msg: "First Name is Required"
+        },
+        notEmpty:{
+          msg: "First Name is Required"
+        }
+      }
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull :false,
+      unique :true,
+      validate:{
+        notNull:{
+          msg: "Last Name is Required"
+        },
+        notEmpty:{
+          msg: "Last Name is Required"
+        }
+      }
+    },
+    dateOfBirth: {
+      type: DataTypes.DATE,
+      allowNull :false,
+      unique :true,
+      validate:{
+        notNull:{
+          msg: "Date is Required"
+        },
+        notEmpty:{
+          msg: "Date is Required"
+        }
+      }
+    },
+    gender:{
+      type: DataTypes.STRING,
+      allowNull :false,
+      unique :true,
+      validate:{
+        notNull:{
+          msg: "Gender is Required"
+        },
+        notEmpty:{
+          msg: "Gender is Required"
+        }
+      }
+    },
+    bloodType: {
+      type: DataTypes.STRING,
+      allowNull :false,
+      unique :true,
+      validate:{
+        notNull:{
+          msg: "Blood Type is Required"
+        },
+        notEmpty:{
+          msg: "Blood Type is Required"
+        }
+      }
+    },
+    city: {
+      type: DataTypes.STRING,
+      allowNull :false,
+      unique :true,
+      validate:{
+        notNull:{
+          msg: "City is Required"
+        },
+        notEmpty:{
+          msg: "City is Required"
+        }
+      }
+    },
+    UserId:{
+      type: DataTypes.INTEGER,
+      allowNull :false,
+      unique :true,
+      validate:{
+        notNull:{
+          msg: "User is Required"
+        },
+        notEmpty:{
+          msg: "User is Required"
+        }
+      }
+    },
   }, {
     sequelize,
     modelName: 'UserProfile',

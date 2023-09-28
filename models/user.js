@@ -23,9 +23,60 @@ module.exports = (sequelize, DataTypes) => {
   }
   
   User.init({
-    username: DataTypes.STRING,
-    password: DataTypes.STRING,
-    role: DataTypes.STRING
+    username:  {
+      type: DataTypes.STRING,
+      allowNull :false,
+      unique :true,
+      validate:{
+        notNull:{
+          msg: "username is Required"
+        },
+        notEmpty:{
+          msg: "username is Required"
+        }
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull :false,
+      validate:{
+        notNull:{
+          msg: "password is Required"
+        },
+        notEmpty:{
+          msg: "password is Required"
+        },
+        customValidator(value) {
+          if (value.length < 5) {
+            throw new Error("Password Must be more than 5 characters");
+          }
+          const hasUppercase = /[A-Z]/.test(value);
+          const hasLowercase = /[a-z]/.test(value);
+          const hasNumber = /[0-9]/.test(value);
+          const specialChars = "!@#$%^&*()_+{}\[\]:;<>,.?~\\-";
+    
+          if (!(hasUppercase && hasLowercase && hasNumber)) {
+            throw new Error("Password must contain at least one uppercase letter, one lowercase letter, and one number");
+          }
+    
+          if (![...specialChars].some(char => value.includes(char))) {
+            throw new Error("Password must contain at least one special character");
+          }
+        }
+      }
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull :false,
+      validate:{
+        notNull:{
+          msg: "Role is Required"
+        },
+        notEmpty:{
+          msg: "Role is Required"
+        }
+      }
+    },
   }, {
     sequelize,
     modelName: 'User',
