@@ -128,7 +128,7 @@ class Controller{
         .then((patient)=>{
             console.log("hi");
             patients = patient
-            return User.findAll({where: {role:'patient'}, include: UserProfile})
+            return User.findAll({where: {role:'doctor'}, include: UserProfile})
         })
         .then((doctor)=>{
             doctors = doctor

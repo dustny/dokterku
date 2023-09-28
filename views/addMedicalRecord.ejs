@@ -9,14 +9,15 @@
   <body>
     <center><h1>Add Medical Record</h1></center>
     <form class="row g-3" action="/medicalRecords/add" method="post">
-        <% patients.forEach(el => { %>
-          
-            <div class="col-12 text-center">
-                <label class="form-label">Full Name</label>
-                <select name="id">
-                    <option value="" disabled selected>--Select--</option>
-                    <option value="<%= el.id%>"><%= fullName(el) %>
+      
+      <div class="col-12 text-center">
+        <label class="form-label">Full Name</label>
+        <select name="id">
+          <option value="" disabled selected>--Select--</option>
+          <% patients.forEach(el => { %>
+                    <option value="<%= el.id%>"><%= el.UserProfile.firstName %>
                 </option>
+                <% }) %>
                 </select>
               <center><input type="string" class="form-control" name="firstName" placeholder="First Name..." style="width:400px"></center>
             </div>
@@ -35,7 +36,7 @@
                 <option value="F">Female</option>
                 </select></center>
             </div>
-        <% }) %>
+     
         <div class="col-12 text-center">
           <label class="form-label">BloodType</label>
           <center><select class="form-select" style="width: 400px" name="bloodType">
