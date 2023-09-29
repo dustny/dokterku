@@ -48,7 +48,10 @@ module.exports = (sequelize, DataTypes) => {
         },
         notEmpty:{
           msg: "Level is Required"
-        }
+        },
+        isInt:{
+          msg: "Must be Number"
+        },
       }
     },
   }, {

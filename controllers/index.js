@@ -3,6 +3,7 @@ const bcyrpt = require('bcryptjs')
 const { formatIDR , fullName} = require('../helpers/formatter')
 const { Op } = require('sequelize')
 
+
 class Controller{
 
     static home(req,res){
@@ -92,7 +93,7 @@ class Controller{
         .catch((err)=>{
         if(err.name === 'SequelizeValidationError'){
             const errors = err.errors.map(e => e.message)
-            res.redirect(`add?errors=${errors}`)
+            res.redirect(`/profile/${id}?errors=${errors}`)
         }else{
             res.send(err)
         }   
@@ -101,6 +102,7 @@ class Controller{
 
     static getProfile(req , res){
         const id = req.session.userId
+        const {errors} = req.query
 
         UserProfile.findOne({
             include: User,
@@ -108,7 +110,7 @@ class Controller{
         })
         .then((user)=>{
             if (!user) throw "User not found!"
-            res.render('editProfile',{user})
+            res.render('editProfile',{user , errors})
         })
         .catch((err)=>{
             console.log(err)
@@ -122,19 +124,16 @@ class Controller{
         console.log(req.body);
         UserProfile.update({firstName , lastName , dateOfBirth ,gender , bloodType, city },{where:id})
         .then(()=>{
-
             res.redirect("/")
-            
         })
         .catch((err)=>{
-            if(err.name === 'SequelizeValidationError'){
-                const errors = err.errors.map(e => e.message)
-                res.redirect(`/profile/${id}?errors=${errors}`)
-            }else{
-                res.send(err)
-            }   
-            })
-
+        if(err.name === 'SequelizeValidationError'){
+             const errors = err.errors.map(e => e.message)
+            res.redirect(`/profile/${id}?errors=${errors}`)
+        }else{
+            res.send(err)
+        }   
+        })
     }
 
     static showAllDiseases(req,res){
@@ -149,7 +148,9 @@ class Controller{
     }
 
     static addDisease(req,res){
-        res.render('addDisease')
+        const {errors} = req.query
+
+        res.render('addDisease', {errors})
     }
 
     static createDisease(req,res){
@@ -162,7 +163,7 @@ class Controller{
         .catch((err)=>{
             if(err.name === 'SequelizeValidationError'){
                 const errors = err.errors.map(e => e.message)
-                res.redirect(`add?errors=${errors}`)
+                res.redirect(`/disease/add?errors=${errors}`)
             }else{
                 res.send(err)
             }   
@@ -215,11 +216,10 @@ class Controller{
         .then(()=>{
             res.redirect('/medicalRecords')
         })
-        .catch((err)=>{
-           
+        .catch((err)=>{ 
             if(err.name === 'SequelizeValidationError'){
                 const errors = err.errors.map(e => e.message)
-                res.redirect(`add?errors=${errors}`)
+                res.redirect(`/medicalRecords/add?errors=${errors}`)
             }else{
                 res.send(err)
             }   
@@ -227,7 +227,6 @@ class Controller{
     }
 
     static medicalRecordPage(req,res){
-        
         let Search = req.query.PatientId
         let options = {include:Disease , where:{role:'patient'}}
    
@@ -272,7 +271,6 @@ class Controller{
             console.log(err)
             res.send(err)
         })
-
     }
 
     static logout(req , res){
@@ -283,9 +281,9 @@ class Controller{
             }else{
                 res.redirect('/login')
             }
-        })
-        
+        }) 
     }
+
 }
 
 module.exports = Controller
